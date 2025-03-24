@@ -1,6 +1,6 @@
 # Pi Swap
 
-P swap is an app that uses ML recommender systems to give recommendations to users based on their ratings and interactions with the books.
+Pi Swap is an app that uses ML recommender systems to give users recommendations based on their ratings and interactions with books.
 
 ## Demo App
 
@@ -16,7 +16,7 @@ This is filler text, please replace this with text for this section.
 
 ## Further Reading
 
-This is filler text, please replace this with a explanatory text about further relevant resources for this repo
+This is filler text, please replace this with an explanatory text about further relevant resources for this repo
 - Resource 1
 - Resource 2
 - Resource 3
