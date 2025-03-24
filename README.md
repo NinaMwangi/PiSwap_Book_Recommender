@@ -1,13 +1,10 @@
-# 📦 Streamlit App Starter Kit 
-```
-⬆️ (Replace above with your app's name)
-```
+# Pi Swap
 
-Description of the app ...
+P swap is an app that uses ML recommender systems to give recommendations to users based on their ratings and interactions with the books.
 
 ## Demo App
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://app-starter-kit.streamlit.app/)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://PiSwap_Book_Recommender.streamlit.app/)
 
 ## GitHub Codespaces
 
