@@ -184,13 +184,13 @@ const apiService = {
    * Get book recommendations with retries
    */
   async getRecommendations(title) {
-    console.log(title)
+    
     try {
       const response = await API.get(
         `/api/recommend/${encodeURIComponent(title)}`,
         { timeout: 15000 }
       );
-      console.log(response.recommendations)
+      
 
       return {
         status: 'success',
@@ -198,7 +198,6 @@ const apiService = {
         metadata: response.recommendations?.debug_info || {}
       };
     } catch (error) {
-      console.log("errors?")
       return {
         status: 'error',
         error: error.message,

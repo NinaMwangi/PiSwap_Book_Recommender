@@ -15,7 +15,7 @@ export default function Uploader({ onUploadComplete }) {
     setMessage({ text: '', variant: 'success' });
     
     try {
-      await api.uploadCSV(file, (progressEvent) => {
+     const response =  await api.uploadCSV(file, (progressEvent) => {
         const percent = Math.round(
           (progressEvent.loaded * 100) / progressEvent.total
         );
@@ -23,7 +23,11 @@ export default function Uploader({ onUploadComplete }) {
       });
       
       setMessage({ 
-        text: 'Data uploaded successfully! Retraining started...', 
+        text: `<div>Data uploaded successfully!</div>
+        Retraining started... <br/>
+        New records: ${response.data.new_records} <br/>
+        Total records: ${response.data.total_records} <br/>
+        Duplicates removed: ${response.data.duplicates_removed}`, 
         variant: 'success' 
       });
       onUploadComplete?.();
@@ -72,8 +76,8 @@ export default function Uploader({ onUploadComplete }) {
       </div>
       
       {message.text && (
-        <Alert variant={message.variant} className="mt-3">
-          {message.text}
+        <Alert variant={message.variant} className="mt-3" >
+          <div dangerouslySetInnerHTML={{ __html: message.text }} />
         </Alert>
       )}
     </div>

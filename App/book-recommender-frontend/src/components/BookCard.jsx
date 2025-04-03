@@ -16,17 +16,18 @@ export default function BookCard({ book }) {
         />
       ) : (
         <div className="text-center p-4 bg-light">
-          <FontAwesomeIcon 
+          {/* <FontAwesomeIcon 
             icon={faBookOpen} 
             size="4x" 
             className="text-muted" 
-          />
+          /> */}
+          <img src={book.metadata.image_url} alt="" />
         </div>
       )}
       <Card.Body className="d-flex flex-column">
         <Card.Title className="text-truncate">{book.title}</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">
-          {book.author || 'Unknown Author'}
+          {book.metadata.author || 'Unknown Author'}
         </Card.Subtitle>
         <Card.Text className="mt-auto">
           <small className="text-muted">
@@ -34,14 +35,7 @@ export default function BookCard({ book }) {
             {book.year || ''}
           </small>
         </Card.Text>
-        {book.score && (
-          <div className="mt-2">
-            <strong>Match: </strong>
-            <span className="badge bg-primary">
-              {(book.score * 100).toFixed(1)}%
-            </span>
-          </div>
-        )}
+        
       </Card.Body>
     </Card>
   );

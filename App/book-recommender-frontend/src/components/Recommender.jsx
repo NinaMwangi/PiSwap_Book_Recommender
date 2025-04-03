@@ -14,17 +14,14 @@ export default function Recommender() {
     
     setLoading(true);
     setError('');
-    console.log("recommendations called!")
-    console.log(books)
     
     try {
       // const {data } = 
       const {books} = await api.getRecommendations(query);
-      console.log(books);
+      
 
       setBooks(Array.isArray(books) ? books : []);
     } catch (err) {
-      console.log(err)
       setError(err.message);
     } finally {
       setLoading(false);
@@ -64,7 +61,6 @@ export default function Recommender() {
         {books.map((book, index) => (
           <Col key={`${book.title}-${index}`}>
             <BookCard book={book} />
-            <h1>Hello</h1>
           </Col>
         ))}
       </Row>
