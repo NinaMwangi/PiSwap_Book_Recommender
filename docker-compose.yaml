@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  frontend-backend:
+    build: .
+    ports:
+      - "80:80"
+      - "8000:8000"
+    depends_on:
+      - mongodb
+    environment:
+      MONGO_URI: "mongodb://admin:password@mongodb:27017/piswap_db"
+
+  mongodb:
+    image: mongo:6.0
+    container_name: piswap-mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:
