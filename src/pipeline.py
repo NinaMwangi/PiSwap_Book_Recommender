@@ -1,15 +1,18 @@
-from data_loader import load_raw_data
-from preprocessing import (
+from src.data_loader import load_raw_data
+from src.preprocessing import (
     preprocess_books,
     preprocess_users,
     preprocessing_ratings,
     final_dataset,
     create_pivot_table
 )
-from pymongo import MongoClient
 import pandas as pd
+from src.utils.mongo_connector import get_db
 
-def main():
+
+
+
+def run_pipeline():
     try:
         # 1. Load Data
         print('Loading raw data...')
@@ -29,45 +32,38 @@ def main():
         print(f" Sample data:\n{final.head(2)}")
 
         # 4. Connecting to MongoDB 
-        client = MongoClient("mongodb+srv://Nina:Mongo%40123@cluster0.jww7vvp.mongodb.net/dbname?retryWrites=true&w=majority",
-                             tls=True,
-                             tlsAllowInvalidCertificates=True)
-        db = client['book_recommender']
+        # mongo = MongoDB()
+        mongo = get_db()
+       
         # Storing the preproccessed initial data
-        '''db["final_dataset"].insert_many(final.to_dict('records'))
-        print("Data saved to MongoDB!")'''
+        mongo.db["final_dataset"].insert_many(final.to_dict('records'))
+        print("Data saved to MongoDB!")
 
         # 5. Loading the existing preprocessed data from MongoDB
         print("Loading preprocessed data from MongoDB...")
-        final_ratings = pd.DataFrame(list(db['final_dataset'].find()))
+        final_ratings = pd.DataFrame(list(mongo.db['final_dataset'].find()))
 
         # Renaming rating_x to rating
         final_ratings = final_ratings.rename(columns={'rating_x': 'rating'})
 
         # 6. creating the pivot table from my existing function
         book_pivot = create_pivot_table(final_ratings)
-
-        # 7. Updating pivot table (atomic operation)
-        db["book_pivot"].replace_one(
-            {"_id": "current_pivot"},
-            {
-                "_id": "current_pivot",
-                "books": book_pivot.index.to_list(),
-                "user_ids": book_pivot.columns.to_list(),
-                "data": book_pivot.values.tolist(),
-                "metadata": {
-                    "shape": f"{book_pivot.shape}",
-                    "last_updated": pd.Timestamp.now().isoformat()
-                }
-            },
-            # Creates if doesnt exist
-            upsert=True
-        )
-        print(f"Successfully updated pivot table (shape: {book_pivot.shape})")
-
-    
+        mongo.update_pivot(book_pivot)
+   
     except Exception as e:
         print(f"Error: {e}")
 
+def trigger_retraining(async_mode = True):
+    ''' One click retraining'''
+    def _train():
+        from train import train_model
+        train_model()
+
+    if async_mode:
+        import threading
+        threading.Thread(target=_train).start()
+        return {'status': 'Retraining started'}
+    return _train()
+
 if __name__ == "__main__":
-    main()
+    run_pipeline()

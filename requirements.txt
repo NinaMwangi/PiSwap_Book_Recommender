@@ -1,4 +1,24 @@
-streamlit
-pandas
+# Core Backend
+fastapi
+uvicorn
+pymongo
+dnspython
+
+# ML Dependencies
 numpy
+pandas
 scikit-learn
+joblib
+
+#Utilities
+requests
+pydantic
+python-multipart
+
+#Deployment
+locust
+
+# security
+python-dotenv
+certifi
+
