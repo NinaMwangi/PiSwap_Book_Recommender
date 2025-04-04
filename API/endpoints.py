@@ -53,8 +53,10 @@ async def get_recommendations(book_title: str):
         
         results = recommender.recommend(book_title)
         
+        
         for book in results:
             metadata = mongo.get_book_metadata(book['title'])
+            
             metadata.pop("_id",None)
             book.update({
                 'metadata': metadata,

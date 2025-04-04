@@ -33,6 +33,7 @@ class _MongoDB:
     def get_book_metadata(self, title: str) -> Dict[str, Any]:
         """Get book metadata by title"""
         try:
+            # breakpoint()
             book = self.db.final_dataset.find_one({"title": title})
             if not book:
                 book = self.db.final_dataset.find_one({

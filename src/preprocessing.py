@@ -35,12 +35,15 @@ def final_dataset(books, users, ratings):
     merged = ratings.merge(books, on='ISBN')
 
     rating_counts = merged.groupby('title')['rating'].count().reset_index()
-    rating_counts = rating_counts[rating_counts['rating'] >= 50]
+    rating_counts = rating_counts.rename(columns={'rating': 'rating_count'})
+    rating_counts = rating_counts[rating_counts['rating_count'] >= 50]
+
     merged = merged.merge(rating_counts, on='title')
 
-    final = merged.merge(users, left_on='user_id', right_on='user_id')
+    final = merged.merge(users, on='user_id')
 
     final = final.drop_duplicates(['user_id', 'title'])
+    final = final.dropna(subset=['rating'])
 
     return final
 

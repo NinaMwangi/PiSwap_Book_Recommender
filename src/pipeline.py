@@ -36,6 +36,7 @@ def run_pipeline():
         mongo = get_db()
        
         # Storing the preproccessed initial data
+        # breakpoint()
         mongo.db["final_dataset"].insert_many(final.to_dict('records'))
         print("Data saved to MongoDB!")
 
@@ -44,7 +45,10 @@ def run_pipeline():
         final_ratings = pd.DataFrame(list(mongo.db['final_dataset'].find()))
 
         # Renaming rating_x to rating
-        final_ratings = final_ratings.rename(columns={'rating_x': 'rating'})
+        if 'rating_x' in final_ratings.columns:
+            final_ratings['rating'] = final_ratings['rating_x']
+            final_ratings = final_ratings.drop(columns=['rating_x', 'rating_y'])
+
 
         # 6. creating the pivot table from my existing function
         book_pivot = create_pivot_table(final_ratings)
