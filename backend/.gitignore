@@ -1,0 +1,104 @@
+/piswap
+.env
+/__pycache__
+
+# React App
+
+# Node.js
+node_modules/
+
+# Build output
+build/
+dist/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Operating System files
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# IDEs
+.idea/
+.vscode/
+
+# Test coverage reports
+coverage/
+
+# npm package lock
+package-lock.json
+yarn.lock
+
+# Optional npm cache directory
+.npm/
+
+# SASS & PostCSS config files
+.sass-cache/
+
+# React Native
+# .expo/ directory if you are using Expo
+.expo/
+
+# Serverless deployment files
+.serverless/
+
+
+# FastAPI App
+
+# Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# IDEs
+.idea/
+.vscode/
+
+# Docker
+*.log
+docker-compose.override.yml
+
+# Python distribution artifacts
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+sdist/
+var/
+
+# Jupyter notebooks checkpoints
+.ipynb_checkpoints/
+
+# Environment files
+.env
+.env.*.local
+
+# Logs
+*.log
+
+# Coverage reports
+coverage/
+*.coverage
+
+# Pytest cache
+.cache/
+
+# FastAPI specific
+*.sqlite3
+
+# Secrets files (example: API keys, database credentials)
+*.secret

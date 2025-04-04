@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   frontend-backend:
@@ -10,6 +10,7 @@ services:
       - mongodb
     environment:
       MONGO_URI: "mongodb://admin:password@mongodb:27017/piswap_db"
+      REACT_APP_API_URL: "http://frontend-backend:8000"
 
   mongodb:
     image: mongo:6.0
